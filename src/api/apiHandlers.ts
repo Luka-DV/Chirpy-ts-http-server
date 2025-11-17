@@ -296,8 +296,19 @@ export async function userLogin(req: Request, res: Response, next: NextFunction)
         console.log("SAFE_USER_LOGIN: ", safeUserWithTokens) // TEST
 
         res.status(200)
-            .json(safeUserWithTokens); //
-        
+            .json(safeUserWithTokens);
+
+        // if issuing httpOnly cookies:
+        /* 
+        res.status(200)
+            .cookie('refreshToken', refreshToken, {
+                    httpOnly: true,
+                    secure: true,
+                    sameSite: 'strict',
+                    maxAge: 60 * 24 * 60 * 60 * 1000 // 60days
+                })
+            .json({...safeUser, token: jwt});
+         */
     } catch (err) {
         next(err);
     }
@@ -306,6 +317,9 @@ export async function userLogin(req: Request, res: Response, next: NextFunction)
 
 export async function refreshAccessToken(req: Request, res: Response, next: NextFunction) {
     try {
+        //if using httpOnly cookies:
+        //const tokenString = req.cookies?.refreshToken as string | undefined;
+
         const tokenString = getBearerToken(req);
         const refreshToken = await findRefreshTokenQuery(tokenString);
         if(!refreshToken || 
@@ -332,6 +346,7 @@ export async function refreshAccessToken(req: Request, res: Response, next: Next
 
 export async function revokeRefreshToken(req: Request, res: Response, next: NextFunction) {
     try {
+        //const tokenString = req.cookies?.refreshToken as string | undefined;
         const tokenString = getBearerToken(req);
         const revokedAt = await revokeRefreshTokenQuery(tokenString);
         if(revokedAt === undefined) {

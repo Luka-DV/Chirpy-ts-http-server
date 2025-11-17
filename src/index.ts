@@ -1,5 +1,6 @@
 
 import express from "express";
+import cookieParser from 'cookie-parser';
 import { 
     countFileserverHits, 
     errorHandler, 
@@ -38,6 +39,7 @@ const app = express();
 
 app.use(middlewareLogResponses);
 app.use(express.json());
+//app.use(cookieParser()); 
 
 // root is relative to the project root 
 app.use("/app", countFileserverHits,express.static("./src/app")); 
