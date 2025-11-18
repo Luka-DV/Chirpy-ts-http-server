@@ -297,18 +297,25 @@ JSON shape:
 
 ### Example cURL
 
+#### Create user:
+```bash
+curl -X POST http://localhost:8080/api/users \
+  -H "Content-Type: application/json" \
+  -d '{"email":"jCarmack@id.com","password":"doom"}'
+```
+
 #### Login:
 ```bash
 curl -X POST http://localhost:8080/api/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"a@b.com","password":"secret"}'
+  -d '{"email":"jCarmack@id.com","password":"doom"}'
 ```
 #### Create chirp:
 ```bash
 curl -X POST http://localhost:8080/api/chirps \
   -H "Authorization: Bearer <ACCESS_JWT>" \
   -H "Content-Type: application/json" \
-  -d '{"body":"Hello world"}'
+  -d '{"body":"Reverse algorithm for shadow volumes"}'
 ```
 #### List chirps by user, desc:
 ```bash
