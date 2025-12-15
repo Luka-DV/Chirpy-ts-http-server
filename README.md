@@ -1,4 +1,4 @@
-# Chirpy API (Node/Express + TypeScript + Postgres)
+# Chirpy — Authenticated REST API (TypeScript, Express, PostgreSQL)
 
 A small X-like backend with users, JWT auth + refresh tokens, chirps, and simple admin tools. Built with Typescript, Express, Drizzle ORM, and Postgres.
 
