@@ -347,15 +347,23 @@ Uses Vitest.
 npm test
 ```
 
+
 ### Possible Future Enhancements
-- Pagination for chirp listings
-- Rate limiting
-- Chirp likes/favorites
-- User following system
+
+* **Containerization**: Dockerize the application to ensure consistent environments from local development to production.
+* **Rate Limiting**:
+    * *First*: Fixed-window request throttling to protect resources from basic abuse.
+    * *Later*: Transition to a **sliding-window counter** using **Redis** for distributed scalability and precision.
+* **CI/CD Pipeline**: Implement GitHub Actions to automate the testing (Vitest) and linting pipeline on every push to ensure code quality.
+* **Pagination**:
+    * *First*: Add offset pagination.
+    * *Later*: Transition to **cursor-based pagination** (Keyset Pagination) to ensure stable $O(1)$ query performance at big dataset scales.
+* **Caching Layer**: Integrate **Redis** as a caching layer to store frequently accessed data, significantly reducing database read pressure and improving API response times.
+
 
 ### Credits
 
-This projects was developed with the guidance of Boot.dev's [HTTP Servers in TypeScript](https://www.boot.dev/courses/learn-http-servers-typescript) course, with additional independent research and implementation work.
+This project was first developed with the guidance of Boot.dev's [HTTP Servers in TypeScript](https://www.boot.dev/courses/learn-http-servers-typescript) course, with additional independent research and implementation work.
 
 ####  License
 
