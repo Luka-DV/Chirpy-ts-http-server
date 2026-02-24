@@ -112,9 +112,18 @@ export async function getAllChirps(req: Request, res: Response, next: NextFuncti
 }
 
 
-export async function getSingleChirp(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function getSingleChirp(
+    req: Request<{chirpID: string}>,
+    res: Response,
+    next: NextFunction
+    ): Promise<void> {
     try {
         const { chirpID } = req.params;
+
+        if(!chirpID.trim()){
+            throw new BadRequestError("Invalid chirp ID");
+        }
+
         const singleChirp = await getSingleChirpQuery(chirpID);
 
         if(!singleChirp) {
@@ -130,9 +139,17 @@ export async function getSingleChirp(req: Request, res: Response, next: NextFunc
 }
 
 
-export async function deleteSingleChirp(req:Request, res: Response, next: NextFunction) {
+export async function deleteSingleChirp(
+    req:Request<{chirpID: string}>, 
+    res: Response, 
+    next: NextFunction
+    ): Promise<void> {
     try {
         const { chirpID } = req.params;
+
+        if(!chirpID.trim()){
+            throw new BadRequestError("Invalid chirp ID");
+        }
 
         const userToken = getBearerToken(req);
         const userId = validateJWT(userToken, config.jwt.secret);
